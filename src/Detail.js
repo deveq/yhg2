@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Points from './components/Points';
 
@@ -6,6 +6,7 @@ const Detail = ({ navigation}) => {
 
     return (
         <View>
+
             <Points/>
         </View>
     )

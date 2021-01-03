@@ -6,22 +6,23 @@ const TodoScreen = () => {
 
     return (
         <View style={styles.container}>
+
             <ScrollView>
                 <TodoCard
                     name='todo_image1.png'
-                    />
+                />
                 <TodoCard
                     name='todo_image2.png'
-                    />
+                />
                 <TodoCard
                     name='todo_image3.png'
-                    />
+                />
                 <TodoCard
                     name='todo_image4.png'
-                    />
+                />
                 <TodoCard
                     name='todo_image5.png'
-                    />
+                />
 
             </ScrollView>
         </View>
@@ -29,7 +30,7 @@ const TodoScreen = () => {
 }
 
 const styles = StyleSheet.create({
-    container : {
+    container: {
         flex: 1,
 
     }

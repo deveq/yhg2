@@ -24,14 +24,14 @@ const FindPw = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Inputs
-            style={[styles.inputText, {marginTop: 100}]}
-            placeholder='UserID'
-            />
-            <Buttons
-            title='비밀번호 찾기'
-            style={{position: 'absolute', bottom:150}}
-            />
+                <Inputs
+                style={[styles.inputText, {marginTop: 100}]}
+                placeholder='UserID'
+                />
+                <Buttons
+                title='비밀번호 찾기'
+                style={{position:"absolute", marginTop:300}}
+                />
 
         </View>
     );
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
         borderBottomColor : 'white',
         borderBottomWidth : 1,
         width: 300,
+    },
+    halfContainer: {
+        height: '40%'
     }
 })
 

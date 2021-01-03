@@ -17,16 +17,35 @@ import Login from './src/Login';
 import FindPw from './src/FindPw';
 import SignIn from './src/SignIn';
 import TodoScreen from './src/TodoScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './src/HomeScreen';
 import Detail from './src/Detail';
 import SplashScreen from 'react-native-splash-screen';
+import TabBarIcon from './src/components/TabBarIcon';
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+const getHeaderTitle = (route) => {
+  //맨첨엔 null이라서 ?? 뒤의 Home이 반환됨
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+
+  switch (routeName) {
+    case 'Home' :
+      return 'Home';
+    case 'Detail' :
+      return 'Detail';
+    case 'Todo' :
+      return 'Todo';
+    default : 
+      return 'Home';
+  }
+}
+
+
 
 
 class App extends Component {
@@ -34,26 +53,30 @@ class App extends Component {
   componentDidMount() {
     setTimeout(()=> {
       SplashScreen.hide();
-    },1000);
-  };
+    },3000);
+  }
 
   mainScreen = ({navigation})=> { 
   return (
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({route})=> ({
+          tabBarIcon : ({focused}) => (
+            TabBarIcon(focused, route.name)
+          ) 
+        })}
+      >
         <Tab.Screen
-          name='HomeScreen'
+          name='Home'
           component={HomeScreen}
-          
           />
         <Tab.Screen
-          name='Deatil'
+          name='Detail'
           component={Detail}
           
           />
           <Tab.Screen
             name='Todo'
             component={TodoScreen}
-          
           />
       </Tab.Navigator>
   )
@@ -63,9 +86,19 @@ class App extends Component {
 
 
     return (
+      // headerRight를 넣고 이미지를 없앰(gone말고 invisible처럼)
+      // 양쪽 다 영역만 차지하게끔 한 후 title을 중앙으로
+      // fetch 사용하면 추가 설치 필요없음
+       
 
       <NavigationContainer style={styles.container}>
-        <Stack.Navigator initialRouteName='SignInNLogin'>
+        <Stack.Navigator 
+        initialRouteName='SignInNLogin'
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerTintColor:'white',
+        }}
+        >
           <Stack.Screen
             name='SignInNLogin'
             component={SignInNLogin}
@@ -73,8 +106,7 @@ class App extends Component {
           />
           <Stack.Screen
             name='Login'
-            component={Login}
-            
+            component={Login}            
           />
           <Stack.Screen
             name='FindPw'
@@ -86,7 +118,12 @@ class App extends Component {
           />
           <Stack.Screen
             name='Main'
-            component={this.mainScreen}/>
+            component={this.mainScreen}
+            options={({route}) => ({
+              headerTitle: getHeaderTitle(route),
+              headerTintColor:'black',
+            })}
+            />
         </Stack.Navigator>
 
       </NavigationContainer>

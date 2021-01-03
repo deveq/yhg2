@@ -1,4 +1,4 @@
-import React , { Component, useState } from 'react';
+import React , { Component, useState, } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 
 const Inputs = (props) => {
@@ -17,7 +17,7 @@ const Inputs = (props) => {
 
 const styles = StyleSheet.create({
     container : {
-        marginLeft: 20,
+        marginLeft: 30,
         marginRight: 20,
     }
 })

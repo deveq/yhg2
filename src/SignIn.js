@@ -23,11 +23,13 @@ const SignIn = ({navigation}) => {
     setLogin();
 
     return (
-            <KeyboardAvoidingView
-             style={styles.container}
-             behavior='padding'
-             enabled
-            >
+            // <KeyboardAvoidingView
+            //  style={styles.container}
+            //  behavior='padding'
+            //  enabled
+            // >
+            <View style={styles.container}>
+
                 <Inputs
                 style={[styles.inputText, {marginTop: 100}]}
                 placeholder='UserID'
@@ -42,9 +44,10 @@ const SignIn = ({navigation}) => {
                 />
                 <Buttons
                 title='확인'
-                style={{position: 'absolute', bottom:150}}
+                style={{position: 'absolute', top:300}}
                 />
-            </KeyboardAvoidingView>
+            </View>
+            // </KeyboardAvoidingView>
     );
 }
 
