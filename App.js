@@ -21,10 +21,13 @@ import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-naviga
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './src/HomeScreen';
-import Detail from './src/Detail';
+import ScheduleScreen from './src/ScheduleScreen';
 import SplashScreen from 'react-native-splash-screen';
 import TabBarIcon from './src/components/TabBarIcon';
-
+import MapScreen from './src/MapScreen';
+import SettingScreen from './src/SettingScreen';
+import MessageScreen from './src/MessageScreen';
+import MenuComponent from './src/components/MenuComponent';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,15 +38,21 @@ const getHeaderTitle = (route) => {
 
   switch (routeName) {
     case 'Home' :
-      return 'Home';
-    case 'Detail' :
-      return 'Detail';
-    case 'Todo' :
-      return 'Todo';
+      return '나의 여행지';
+    case 'Schedule' :
+      return '상세 투어내역';
+    case 'Map' :
+      return '지도';
+    case 'Setting' :
+      return '설정';
+    case 'Message' :
+      return '메시지';
     default : 
       return 'Home';
   }
 }
+
+// issue1. HomeScreen에 ScrollView의 스크롤이 화면 끝에 붙지 않는점
 
 
 
@@ -70,13 +79,21 @@ class App extends Component {
           component={HomeScreen}
           />
         <Tab.Screen
-          name='Detail'
-          component={Detail}
+          name='Schedule'
+          component={ScheduleScreen}
           
           />
+            <Tab.Screen
+              name='Map'
+              component={MapScreen}
+            />
           <Tab.Screen
-            name='Todo'
-            component={TodoScreen}
+            name='Message'
+            component={MessageScreen}
+          />
+          <Tab.Screen
+            name='Setting'
+            component={SettingScreen}
           />
       </Tab.Navigator>
   )
@@ -122,6 +139,9 @@ class App extends Component {
             options={({route}) => ({
               headerTitle: getHeaderTitle(route),
               headerTintColor:'black',
+              headerRight: () => (
+                <MenuComponent/>
+              )
             })}
             />
         </Stack.Navigator>
