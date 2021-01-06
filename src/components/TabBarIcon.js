@@ -13,11 +13,18 @@ const TabBarIcon = (focused, name) => {
         case 'Home' :
             iconName = 'home-outline'
             break;
-        case 'Detail' :
+        case 'Schedule' :
             iconName = 'md-newspaper-outline'
             break;
-        case 'Todo' :
-            iconName = 'settings-outline'
+        case 'Message' :
+            iconName = 'chatbubble-ellipses-outline';
+            break;
+        case 'Map' :
+            iconName = 'location-outline';
+            break;
+        case 'Setting' :
+            iconName = 'settings-outline';
+            break;
     }
   
     iconSize = focused ? 30 : 20;
