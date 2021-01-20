@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Button, ScrollView, StatusBar, Image } from 'react-native';
-import Points from './components/Points';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import MapImage from './assets/pics/map.png';
+import MapImage from '../../assets/pics/map.png';
 const MapScreen = ({ navigation }) => {
 
 

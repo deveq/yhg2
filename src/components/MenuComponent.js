@@ -27,12 +27,13 @@ class MenuComponent extends Component {
                 <Menu
                     ref={this.setMenuRef}
                     button={<TouchableOpacity onPress={this.showMenu}><Icon name='reorder-three' size={30}/></TouchableOpacity>}>
+                        <MenuItem onPress={this.hideMenu}>최신순</MenuItem>
                         <MenuItem onPress={this.hideMenu}>과거순</MenuItem>
-                        <MenuItem onPress={this.hideMenu} disabled>
+                        {/* <MenuItem onPress={this.hideMenu} disabled>
                             테스트용 메뉴
                         </MenuItem>
                         <MenuDivider/>
-                        <MenuItem onPress={this.hideMenu}>나누기 테스트용</MenuItem>
+                        <MenuItem onPress={this.hideMenu}>나누기 테스트용</MenuItem> */}
                 </Menu>
             </View>
         )

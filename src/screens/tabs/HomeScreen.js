@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Button, ScrollView, StatusBar } from 'react-native';
-import Points from './components/Points';
+import Points from '../../components/Points';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const HomeScreen = ({ navigation }) => {

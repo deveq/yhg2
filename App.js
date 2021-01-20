@@ -20,14 +20,11 @@ import TodoScreen from './src/TodoScreen';
 import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './src/HomeScreen';
-import ScheduleScreen from './src/ScheduleScreen';
+import ScheduleScreen from './src/screens/tabs/ScheduleScreen';
 import SplashScreen from 'react-native-splash-screen';
-import TabBarIcon from './src/components/TabBarIcon';
-import MapScreen from './src/MapScreen';
-import SettingScreen from './src/SettingScreen';
-import MessageScreen from './src/MessageScreen';
 import MenuComponent from './src/components/MenuComponent';
+import UserInfoScreen from './src/UserInfoScreen';
+import TabNavigator from './src/screens/tabs/TabNavigator';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -37,22 +34,27 @@ const getHeaderTitle = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
 
   switch (routeName) {
-    case 'Home' :
+    case 'Home':
       return '나의 여행지';
-    case 'Schedule' :
+    case 'Schedule':
       return '상세 투어내역';
-    case 'Map' :
+    case 'Map':
       return '지도';
-    case 'Setting' :
+    case 'Setting':
       return '설정';
-    case 'Message' :
+    case 'Message':
       return '메시지';
-    default : 
+    default:
       return 'Home';
   }
 }
 
-// issue1. HomeScreen에 ScrollView의 스크롤이 화면 끝에 붙지 않는점
+// tab naviagtion에서 backbutton을 누르면 stack으로 돌아가지않도록.
+// 햄버거가 홈탭에서만 보이도록
+// toggle button controller switch
+// 메인화면에서 백버튼 없애기
+// AsyncStorage에서 local data가 있을때 바로 메인으로, 없으면 로그인화면으로
+
 
 
 
@@ -60,70 +62,38 @@ const getHeaderTitle = (route) => {
 class App extends Component {
 
   componentDidMount() {
-    setTimeout(()=> {
+    setTimeout(() => {
       SplashScreen.hide();
-    },3000);
-  }
-
-  mainScreen = ({navigation})=> { 
-  return (
-      <Tab.Navigator
-        screenOptions={({route})=> ({
-          tabBarIcon : ({focused}) => (
-            TabBarIcon(focused, route.name)
-          ) 
-        })}
-      >
-        <Tab.Screen
-          name='Home'
-          component={HomeScreen}
-          />
-        <Tab.Screen
-          name='Schedule'
-          component={ScheduleScreen}
-          
-          />
-            <Tab.Screen
-              name='Map'
-              component={MapScreen}
-            />
-          <Tab.Screen
-            name='Message'
-            component={MessageScreen}
-          />
-          <Tab.Screen
-            name='Setting'
-            component={SettingScreen}
-          />
-      </Tab.Navigator>
-  )
+    }, 3000);
   }
 
   render() {
 
+    // SplashScreen.hide();
 
     return (
       // headerRight를 넣고 이미지를 없앰(gone말고 invisible처럼)
       // 양쪽 다 영역만 차지하게끔 한 후 title을 중앙으로
       // fetch 사용하면 추가 설치 필요없음
-       
+
 
       <NavigationContainer style={styles.container}>
-        <Stack.Navigator 
-        initialRouteName='SignInNLogin'
-        screenOptions={{
-          headerTitleAlign: 'center',
-          headerTintColor:'white',
-        }}
+        <Stack.Navigator
+          initialRouteName='SignInNLogin'
+          screenOptions={{
+            headerTitleAlign: 'center',
+            headerTintColor: 'white',
+          }}
+        
         >
           <Stack.Screen
             name='SignInNLogin'
             component={SignInNLogin}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name='Login'
-            component={Login}            
+            component={Login}
           />
           <Stack.Screen
             name='FindPw'
@@ -135,17 +105,18 @@ class App extends Component {
           />
           <Stack.Screen
             name='Main'
-            component={this.mainScreen}
-            options={({route}) => ({
+            component={TabNavigator}
+            options={({ route }) => ({
               headerTitle: getHeaderTitle(route),
-              headerTintColor:'black',
+              headerTintColor: 'black',
               headerRight: () => (
-                <MenuComponent/>
-              )
+                <MenuComponent />
+              ),
+              headerLeft: null,
+              headerShown: getFocusedRouteNameFromRoute(route) ==='Schedule'? '' :'none'
             })}
-            />
+          />
         </Stack.Navigator>
-
       </NavigationContainer>
     )
   }
